@@ -1,0 +1,19 @@
+{
+  "name": "ssps",
+  "version": "1.0.1",
+  "description": "Stock Share Price Scrapping",
+  "main": "server.js",
+  "author": "rlacey2",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "cheerio": "latest",
+    "express": "latest",
+    "node-crontab": "^0.0.8",
+    "q": "^1.5.1",
+    "request": "latest"
+  }
+}
