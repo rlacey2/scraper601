@@ -1,4 +1,4 @@
-node-web-scraper
-================
+Stock Share Price Scraper
+=========================
 
-Simple web scraper to get a movie name, release year and community rating from IMDB.
+A very simple express application that expose some routes to scrape share price data from sites that present data from exchanges.
