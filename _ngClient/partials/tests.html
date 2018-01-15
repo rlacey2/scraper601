@@ -1,0 +1,112 @@
+<div class="row">
+ 
+<h1>Tests</h1>
+
+
+NEED TO RANDOMISE THESE CASES
+ 
+<div class="row" ng-repeat="x in tests track by x.n">
+	<h3>n = {{x.n}}</h3>
+	{{x.currency_rates}}  
+    
+ <div class="row"  >
+    <div class="col-md-3">
+		Asset
+	</div>
+    <div class="col-md-2">
+		Symbol
+	</div>	
+    <div class="col-md-2">
+		<span class="pull-right">
+			Price
+		</span>
+	</div>		
+    <div class="col-md-2">
+		<span class="pull-right">
+			 Change
+		</span>
+	</div>		
+    <div class="col-md-2">
+		<span class="pull-right">
+			% Change
+		</span>
+	</div>		
+	</div>  
+ 
+ <div class="row" ng-repeat="s in x.ise.data track by s.symbol">
+    <div class="col-md-3">
+		{{s.company}}
+	</div>
+    <div class="col-md-2">
+		{{s.symbol}}
+	</div>	
+    <div class="col-md-2">
+		<span class="pull-right">
+			{{s.price}}
+		</span>
+	</div>		
+    <div class="col-md-2">
+		<span class="pull-right">
+			{{s.change}}
+		</span>
+	</div>		
+    <div class="col-md-2">
+		<span class="pull-right">
+			{{s.pChg}}
+		</span>
+	</div>		
+	</div>
+ 
+ <div class="row" ng-repeat="s in x.ftse350.data track by s.symbol">
+    <div class="col-md-3">
+		{{s.company}}
+	</div>
+    <div class="col-md-2">
+		{{s.symbol}}
+	</div>	
+    <div class="col-md-2">
+		<span class="pull-right">
+			{{s.price}}
+		</span>
+	</div>		
+    <div class="col-md-2">
+		<span class="pull-right">
+			{{s.change}}
+		</span>
+	</div>		
+    <div class="col-md-2">
+		<span class="pull-right">
+			{{s.pChg}}
+		</span>
+	</div>		
+	</div>
+ 
+ <div class="row" ng-repeat="s in x.coinranking.data track by s.symbol">
+    <div class="col-md-3">
+		{{s.company}}
+	</div>
+    <div class="col-md-2">
+		{{s.symbol}}
+	</div>	
+    <div class="col-md-2">
+		<span class="pull-right">
+			{{s.price}}
+		</span>
+	</div>		
+    <div class="col-md-2">
+		<span class="pull-right">
+			{{s.change}}
+		</span>
+	</div>		
+    <div class="col-md-2">
+		<span class="pull-right">
+			{{s.pChg}}
+		</span>
+	</div>		
+	</div>
+	
+	 
+ 
+	</div>
+	 
+</div>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Investment Scraper</title> 
+<link href="css/main.css" rel="stylesheet" />
+<link rel="shortcut icon"   href="/favicon.ico"/>
+<link rel="stylesheet" href="/node_modules/angular-cookie-law/dist/angular-cookie-law.min.css">
+
+    <!-- Notify CSS for nrzLightify i.e. only need bootstrap-notify for its CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css	" rel="stylesheet">
+ 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">	 
+</head>
+
+<body ng-app="angularnodeApp" > 
+	<cookie-law-banner message="We use cookies to support some features!" policy-url="https://cookiesandyou.com/" 
+                    	policy-button="true"  
+						policy-text="Explain Cookies" 
+						decline-button="true"
+						decline-text="I am rejecting cookies"
+						>			
+	</cookie-law-banner>
+ 
+	<cookie-law-wait>
+   <div class="row">
+         <!-- HEADER AND NAVBAR -->
+        <header>
+            <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#home">Investment Scraper</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+									<li><a href="#home"><i>Home</i></a></li>
+									<li><a href="#tests"><i>Tests</i></a></li>
+									<li><a href="#about"><i>About</i></a></li>
+                </ul>		 
+            </div>
+            </nav>		
+        </header>
+
+	</div> 
+ 
+  
+	<div class="row">
+		<div class="col-md-1" ></div>
+		<!-- content placed here from routing -->
+		<div class="col-md-10" >
+				<div ng-view><!-- Single Page Views Inserted Here--> </div> 
+		</div>
+		<div class="col-md-1" ></div>
+	</div>
+			 
+	</cookie-law-wait>
+ 
+	<div nrz-lightify-messages position="top-right"></div>
+</body>
+<!-- cdn(s) etc. -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script> 		 
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.js" ></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-route.js" ></script>	
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-resource.js" ></script>	
+<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.min.js"></script>   <!-- ui-tabs etc -->
+<!-- locally stored scripts on the server -->
+<script type="text/javascript" src="/js_thirdparty/notify/bootstrap-notify.js"></script> 	 	
+<script type="text/javascript" src="/js_thirdparty/notify/angular-lightify.js"></script>   
+<script type="text/javascript" src="/node_modules/angular-cookie-law/dist/angular-cookie-law.min.js"></script>  
+<script type="text/javascript" src="js/app.js"> </script> <!-- must come before all the controllers etc -->
+
+<script type="text/javascript" src="js/services/services.js"> </script>
+
+<!-- <script type="text/javascript" src="js/controllers/controllers.js"> </script> -->
+<script type="text/javascript" src="js/controllers/home.js"> </script>
+<script type="text/javascript" src="js/controllers/about.js"> </script>
+<script type="text/javascript" src="js/controllers/tests.js"> </script>
+ 
+ 	
+</html>
+ 
