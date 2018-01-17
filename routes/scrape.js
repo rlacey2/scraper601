@@ -252,7 +252,7 @@ router.get('/test', function(req, res){  // as /scrape/test?n=1 ,2,3,4,5
 
 	var n = req.query.n || 1 ;
 	
-	n = n -1; // humans use 1..5
+	//n = n -1; // humans use 1..5
 	var data = [];
 	var results = {};
  

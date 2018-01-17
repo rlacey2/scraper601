@@ -23,12 +23,21 @@ angularnodeApp.controller('TestsCtrl', ['$scope', '$http', '$q',
 	$scope.testData = {};
 	
 	// refactor in real-life
-	var getOptions
+	var getOptions;
+	
+    getOptions = {}; 
+	getOptions.route = "/scrape/test?n=0";    
+ 	get(getOptions).then(function(R) {   
+							$scope.testData = R.data;	 
+							$scope.tests[0] =  R.data ;
+						}, function(error) {
+						   $scope.testData = {};						   
+						});		
     getOptions = {}; 
 	getOptions.route = "/scrape/test?n=1";    
  	get(getOptions).then(function(R) {   
 							$scope.testData = R.data;	 
-							$scope.tests[0] =  R.data ;
+							$scope.tests[1] =  R.data ;
 						}, function(error) {
 						   $scope.testData = {};						   
 						});	
@@ -37,7 +46,7 @@ angularnodeApp.controller('TestsCtrl', ['$scope', '$http', '$q',
 	getOptions.route = "/scrape/test?n=2";    
  	get(getOptions).then(function(R) {   
 							$scope.testData = R.data;	 
-							$scope.tests[1] =  R.data ;
+							$scope.tests[2] =  R.data ;
 						}, function(error) {
 						   $scope.testData = {};					   
 						});	
@@ -46,7 +55,7 @@ angularnodeApp.controller('TestsCtrl', ['$scope', '$http', '$q',
 	getOptions.route = "/scrape/test?n=3";    
  	get(getOptions).then(function(R) {   
 							$scope.testData = R.data;	 
-							$scope.tests[2] =  R.data ;
+							$scope.tests[3] =  R.data ;
 						}, function(error) {
 						   $scope.testData = {};					   
 						});	
@@ -55,7 +64,7 @@ angularnodeApp.controller('TestsCtrl', ['$scope', '$http', '$q',
 	getOptions.route = "/scrape/test?n=4";    
  	get(getOptions).then(function(R) {   
 							$scope.testData = R.data;	 
-							$scope.tests[3] =  R.data ;
+							$scope.tests[4] =  R.data ;
 						}, function(error) {
 						   $scope.testData = {};					   
 						});	
@@ -64,7 +73,7 @@ angularnodeApp.controller('TestsCtrl', ['$scope', '$http', '$q',
 	getOptions.route = "/scrape/test?n=5";    
  	get(getOptions).then(function(R) {   
 							$scope.testData = R.data;	 
-							$scope.tests[4] =  R.data ;
+							$scope.tests[5] =  R.data ;
 						}, function(error) {
 						   $scope.testData = {};					   
 						});							

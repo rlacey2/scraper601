@@ -1,4 +1,68 @@
 var testPrices =  [
+
+{   "n" : 0,
+   "currency_rates" : {
+   "euro" : 	{ "dollar" 	 :  1.10  ,
+				 "sterling" :  0.8   }
+   },
+
+	"ise" : {
+	  
+   "exchange":"ise",
+   "currency":"euro",
+   "source":"http://www.davy.ie",
+   "time":"2018-01-12T21:35:16.730Z",
+   "cached":false,
+   "details":"http://www.davy.ie/markets-and-share-prices/iseq/detail?ric=", // needs symbol appended
+   "data":[  
+  
+      {  
+         "company":"AIB GROUP PLC",
+         "symbol":"AIBG.I",
+         "price":"5.00",
+         "change":"0.00",
+         "pChg":"0.00%" 
+         
+      },
+ 
+      {  
+         "company":"BK IRE GRP PLC",
+         "symbol":"BIRG.I",
+         "price":"4.00",
+         "change":"0.00",
+         "pChg":"0.00%" 
+      },
+ 
+      {  
+         "company":"CRH PLC",
+         "symbol":"CRH.I",
+         "price":"30.00",
+         "change":"0.00",
+         "pChg":"0.00%" 
+      },
+ 
+   ]
+},
+
+	"ftse350" :   {"exchange":"ftse350",
+		"currency":"sterling",
+		"source":"http://shares.telegraph.co.uk",
+		"time":"2018-01-12T21:59:11.944Z",
+		"cached":false,
+		"details":"http://shares.telegraph.co.uk",
+		"data":[{"company":"Tesco","symbol":"TSCO","price":"4.50","change":"0.00","pChg":"0.00%"} ]
+	},
+
+	"coinranking" :  {"exchange":"coinranking",
+		"currency":"dollar",
+		"source":"https://coinranking.com",
+		"time":"2018-01-12T22:10:05.247Z",
+		"cached":false,
+		"details":"https://coinranking.com/coin",
+		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"2.00","change":"0.00","pChg":"0.00%"}]
+	}	
+},
+
 {   "n" : 1,
    "currency_rates" : {
    "euro" : 	{ "dollar" 	 :  1.10  ,
@@ -18,26 +82,26 @@ var testPrices =  [
       {  
          "company":"AIB GROUP PLC",
          "symbol":"AIBG.I",
-         "price":"5.44",
-         "change":"-0.01",
-         "pChg":"-0.18%" 
+         "price":"5.50",
+         "change":"+0.50",
+         "pChg":"+10.00%" 
          
       },
  
       {  
          "company":"BK IRE GRP PLC",
          "symbol":"BIRG.I",
-         "price":"7.95",
-         "change":"+0.07",
-         "pChg":"+0.89%" 
+         "price":"4.40",
+         "change":"+0.40",
+         "pChg":"+10.00%" 
       },
  
       {  
          "company":"CRH PLC",
          "symbol":"CRH.I",
-         "price":"30.43",
-         "change":"-0.03",
-         "pChg":"-0.10%" 
+         "price":"30.00",
+         "change":"+3.00",
+         "pChg":"+10.00%"  
       },
  
    ]
@@ -49,7 +113,7 @@ var testPrices =  [
 		"time":"2018-01-12T21:59:11.944Z",
 		"cached":false,
 		"details":"http://shares.telegraph.co.uk",
-		"data":[{"company":"Tesco","symbol":"TSCO","price":"204.90","change":"2.60","pChg":"1.29"} ]
+		"data":[{"company":"Tesco","symbol":"TSCO","price":"4.50","change":"+0.45","pChg":"+10.00%"} ]
 	},
 
 	"coinranking" :  {"exchange":"coinranking",
@@ -58,14 +122,14 @@ var testPrices =  [
 		"time":"2018-01-12T22:10:05.247Z",
 		"cached":false,
 		"details":"https://coinranking.com/coin",
-		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"1.99","change":0.05,"pChg":"2.47%"}]
+		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"2.00","change":"+0.20","pChg":"+10.00%"}]
 	}	
 },
- 
+
 {   "n" : 2,
    "currency_rates" : {
-   "euro" : 	{ "dollar" 	 :  1.20  ,
-				 "sterling" :  0.9   }
+   "euro" : 	{ "dollar" 	 :  1.10  ,
+				 "sterling" :  0.8   }
    },
 
 	"ise" : {
@@ -81,26 +145,26 @@ var testPrices =  [
       {  
          "company":"AIB GROUP PLC",
          "symbol":"AIBG.I",
-         "price":"5.43",
-         "change":"-0.02",
-         "pChg":"-0.36%" 
+         "price":"4.50",
+         "change":"-0.50",
+         "pChg":"-10.00%" 
          
       },
  
       {  
          "company":"BK IRE GRP PLC",
          "symbol":"BIRG.I",
-         "price":"7.95",
-         "change":"+0.07",
-         "pChg":"+0.89%" 
+         "price":"3.60",
+         "change":"-0.40",
+         "pChg":"-10.00%" 
       },
  
       {  
          "company":"CRH PLC",
          "symbol":"CRH.I",
-         "price":"30.43",
-         "change":"-0.03",
-         "pChg":"-0.10%" 
+         "price":"27.00",
+         "change":"-3.00",
+         "pChg":"-10.00%"  
       },
  
    ]
@@ -112,7 +176,7 @@ var testPrices =  [
 		"time":"2018-01-12T21:59:11.944Z",
 		"cached":false,
 		"details":"http://shares.telegraph.co.uk",
-		"data":[{"company":"Tesco","symbol":"TSCO","price":"204.90","change":"2.60","pChg":"1.29"} ]
+		"data":[{"company":"Tesco","symbol":"TSCO","price":"4.05","change":"-0.45","pChg":"-10.00%"} ]
 	},
 
 	"coinranking" :  {"exchange":"coinranking",
@@ -121,14 +185,14 @@ var testPrices =  [
 		"time":"2018-01-12T22:10:05.247Z",
 		"cached":false,
 		"details":"https://coinranking.com/coin",
-		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"1.99","change":0.05,"pChg":"2.47%"}]
+		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"1.80","change":"-0.20","pChg":"-10.00%"}]
 	}	
-}
- ,
+},
+
 {   "n" : 3,
    "currency_rates" : {
-   "euro" : 	{ "dollar" 	 :  1.30  ,
-				 "sterling" :  0.95   }
+   "euro" : 	{ "dollar" 	 :  1.10  ,
+				 "sterling" :  0.8   }
    },
 
 	"ise" : {
@@ -144,26 +208,26 @@ var testPrices =  [
       {  
          "company":"AIB GROUP PLC",
          "symbol":"AIBG.I",
-         "price":"5.42",
-         "change":"-0.03",
-         "pChg":"-0.54%" 
+         "price":"6.00",
+         "change":"+1.00",
+         "pChg":"+20.00%" 
          
       },
  
       {  
          "company":"BK IRE GRP PLC",
          "symbol":"BIRG.I",
-         "price":"7.95",
-         "change":"+0.07",
-         "pChg":"+0.89%" 
+         "price":"4.80",
+         "change":"+0.80",
+         "pChg":"+20.00%" 
       },
  
       {  
          "company":"CRH PLC",
          "symbol":"CRH.I",
-         "price":"30.43",
-         "change":"-0.03",
-         "pChg":"-0.10%" 
+         "price":"36.00",
+         "change":"+6.00",
+         "pChg":"+20.00%"  
       },
  
    ]
@@ -175,7 +239,7 @@ var testPrices =  [
 		"time":"2018-01-12T21:59:11.944Z",
 		"cached":false,
 		"details":"http://shares.telegraph.co.uk",
-		"data":[{"company":"Tesco","symbol":"TSCO","price":"204.90","change":"2.60","pChg":"1.29"} ]
+		"data":[{"company":"Tesco","symbol":"TSCO","price":"5.40","change":"+0.90","pChg":"+20.00%"} ]
 	},
 
 	"coinranking" :  {"exchange":"coinranking",
@@ -184,14 +248,14 @@ var testPrices =  [
 		"time":"2018-01-12T22:10:05.247Z",
 		"cached":false,
 		"details":"https://coinranking.com/coin",
-		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"1.99","change":0.05,"pChg":"2.47%"}]
+		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"2.40","change":"+0.40","pChg":"+20.00%"}]
 	}	
-}
- ,
+},
+ 
 {   "n" : 4,
    "currency_rates" : {
-   "euro" : 	{ "dollar" 	 :  1.15  ,
-				 "sterling" :  0.85   }
+   "euro" : 	{ "dollar" 	 :  1.10  ,
+				 "sterling" :  0.8   }
    },
 
 	"ise" : {
@@ -207,26 +271,26 @@ var testPrices =  [
       {  
          "company":"AIB GROUP PLC",
          "symbol":"AIBG.I",
-         "price":"5.41",
-         "change":"-0.04",
-         "pChg":"-0.72%" 
+         "price":"4.00",
+         "change":"-1.00",
+         "pChg":"-20.00%" 
          
       },
  
       {  
          "company":"BK IRE GRP PLC",
          "symbol":"BIRG.I",
-         "price":"7.95",
-         "change":"+0.07",
-         "pChg":"+0.89%" 
+         "price":"3.20",
+         "change":"-0.80",
+         "pChg":"-20.00%" 
       },
  
       {  
          "company":"CRH PLC",
          "symbol":"CRH.I",
-         "price":"30.43",
-         "change":"-0.03",
-         "pChg":"-0.10%" 
+         "price":"24.00",
+         "change":"-6.00",
+         "pChg":"-20.00%"  
       },
  
    ]
@@ -238,7 +302,7 @@ var testPrices =  [
 		"time":"2018-01-12T21:59:11.944Z",
 		"cached":false,
 		"details":"http://shares.telegraph.co.uk",
-		"data":[{"company":"Tesco","symbol":"TSCO","price":"204.90","change":"2.60","pChg":"1.29"} ]
+		"data":[{"company":"Tesco","symbol":"TSCO","price":"3.60","change":"-0.90","pChg":"-20.00%"} ]
 	},
 
 	"coinranking" :  {"exchange":"coinranking",
@@ -247,14 +311,14 @@ var testPrices =  [
 		"time":"2018-01-12T22:10:05.247Z",
 		"cached":false,
 		"details":"https://coinranking.com/coin",
-		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"1.99","change":0.05,"pChg":"2.47%"}]
+		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"1.60","change":"-0.40","pChg":"-20.00%"}]
 	}	
-}
- ,
+},
+
 {   "n" : 5,
    "currency_rates" : {
-   "euro" : 	{ "dollar" 	 :  1.05  ,
-				 "sterling" :  0.75   }
+   "euro" : 	{ "dollar" 	 :  1.10  ,
+				 "sterling" :  0.8   }
    },
 
 	"ise" : {
@@ -270,26 +334,26 @@ var testPrices =  [
       {  
          "company":"AIB GROUP PLC",
          "symbol":"AIBG.I",
-         "price":"5.40",
-         "change":"-0.05",
-         "pChg":"-0.9%" 
+         "price":"10.00",
+         "change":"+5.00",
+         "pChg":"+100.00%" 
          
       },
  
       {  
          "company":"BK IRE GRP PLC",
          "symbol":"BIRG.I",
-         "price":"7.95",
-         "change":"+0.07",
-         "pChg":"+0.89%" 
+         "price":"8.00",
+         "change":"+4.00",
+         "pChg":"+100.00%" 
       },
  
       {  
          "company":"CRH PLC",
          "symbol":"CRH.I",
-         "price":"30.43",
-         "change":"-0.03",
-         "pChg":"-0.10%" 
+         "price":"60.00",
+         "change":"+30.00",
+         "pChg":"+100.00%" 
       },
  
    ]
@@ -301,7 +365,7 @@ var testPrices =  [
 		"time":"2018-01-12T21:59:11.944Z",
 		"cached":false,
 		"details":"http://shares.telegraph.co.uk",
-		"data":[{"company":"Tesco","symbol":"TSCO","price":"204.90","change":"2.60","pChg":"1.29"} ]
+		"data":[{"company":"Tesco","symbol":"TSCO","price":"9.00","change":"+4.50","pChg":"+100.00%"} ]
 	},
 
 	"coinranking" :  {"exchange":"coinranking",
@@ -310,10 +374,9 @@ var testPrices =  [
 		"time":"2018-01-12T22:10:05.247Z",
 		"cached":false,
 		"details":"https://coinranking.com/coin",
-		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"1.99","change":0.05,"pChg":"2.47%"}]
+		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"4.00","change":+2.00,"pChg":"+100.00%"}]
 	}	
-}
- 
+} 
 ];
        
  
