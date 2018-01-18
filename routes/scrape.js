@@ -112,44 +112,19 @@ var jobId = crontab.scheduleJob("*/5 * * * *", function() { //This will call thi
  // not working as next login fails for some reason	secrets.jwtSetSecret();
 });
 
-function scrap_data(options, res){ // deprecated
-  var deferred = Q.defer();
-  //console.log(options);
- 
-  var data = [];
-  var results = { exchange : options.exchange, source: options.sourceSite, time : new Date(), cached : false, details : options.details, data: []};
- 
-  request(options.url, function(error, response, html){
-	if ( error)
-	{
-		results.error = error
-		res.status(404);	
-		res.json(results);
-		return;
-	}
-	
-    if(!error){ // redundant 
-      var $ = cheerio.load(html);
- 
-      var company, price, change, pChg, symbol, detail;
-      var json;
-      // valid parse 10/01/2018
-      $(options.stock_selector).filter(function(){ // for each !!!!! i.e. get each share which is in a row / tr
-        var stock = $(this);
-		json = options.parse_stock($,stock);
-	//	json.currency = options.currency
-        data.push(json);
-      });
-    }
- 
-	results.data = data;
-	cache[options.exchange] = results;
-	res.status(200);	
-	res.json(results);
- 
-  });
- 
-}; // scrap_data
+function get_asset_object(data, asset,res) {
+			var obj = data.find(o => o.symbol === asset);
+            if (obj) {
+				res.status(200);	
+				res.json(obj);
+				return;
+			}
+			else  { // not on this exchange
+				res.status(404);	
+				res.json({});
+				return;
+			}	
+}
 
 function scrape_companies($,options) {  // companies = stock of company, cryto currency i.e. something tradeable
 	    var data = [];
@@ -158,7 +133,6 @@ function scrape_companies($,options) {  // companies = stock of company, cryto c
  	
 			var stock = $(this);
 			json = options.parse_stock($,stock);
-			// json.currency = options.currency
 			data.push(json);
 		  });		  
 		  return data;
@@ -200,7 +174,78 @@ router.get('/', function(req, res){  // as /scrape?exchange=ise    /scrape?excha
 	  });	
 }); // /scrap
 
-router.get('/all', function(req, res){  // as /scrape/all
+router.get('/assets/:exchange/:asset', function(req, res){  // as /scrape/some exchange/some asset returns object for on share only
+
+	var exchange = req.params.exchange;
+	var asset = req.params.asset;
+ 
+  	if (cache[exchange]) {  
+            // need to search the array of data
+			
+
+			get_asset_object(cache[exchange].data, asset, res);			
+			/*
+			var data = cache[exchange].data;
+ 
+			var obj = data.find(o => o.symbol === asset);
+            if (obj)
+			{
+				res.status(200);	
+				res.json(obj);
+				return;
+			}
+			else // not on this exchange
+			{
+				res.status(404);	
+				res.json({});
+				return;
+			}	
+*/			
+	}	
+	
+	// do a fresh requery
+			
+	var options = exchanges[exchange];
+ 
+	var data = [];
+	var results = { exchange : options.exchange, source: options.sourceSite, time : new Date(), cached : false, details : options.details, data: []};
+ 	
+	axios.get(options.url)
+	  .then(response => {
+		var $ = cheerio.load(response.data);
+ 
+			results.data = scrape_companies($,options);
+
+			cache[exchange] = results;
+			cache[exchange].cached = true;			
+
+			get_asset_object(cache[exchange].data, asset, res);
+			/*
+            // need to search the array of data
+			var data = cache[exchange].data;
+ 
+			var obj = data.find(o => o.symbol === asset);
+            if (obj) {
+				res.status(200);	
+				res.json(obj);
+				return;
+			}
+			else  { // not on this exchange
+				res.status(404);	
+				res.json({});
+				return;
+			}	
+			*/			
+	  })
+	  .catch(error => {
+		results.error = error
+		res.status(404);	
+		res.json(results);
+		return;	
+	  });
+});
+
+router.get('/all', function(req, res){  // as /scrape/all  object with data for 3 exchanges
 
 	var data = [];
 	var results = {};
@@ -210,6 +255,7 @@ router.get('/all', function(req, res){  // as /scrape/all
 			res.status(200);	
 			cache["all"][0].cached = true;
 			cache["all"][1].cached = true;			
+			cache["all"][2].cached = true;				
 			res.json(cache["all"]);	
 			return;
 	}		
@@ -228,12 +274,12 @@ router.get('/all', function(req, res){  // as /scrape/all
 		// all requests are now complete
 		
 	 
-	        $ = cheerio.load(R_ise.data);		
+	        $ = cheerio.load(R_ise.data);	//.data is the html	
 			results.ise.data =  scrape_companies($,exchanges["ise"]); 
 			$ = cheerio.load(R_ftse350.data);
-			results.coinranking.data =  scrape_companies($,exchanges["ftse350"]); 	
+			results.ftse350.data =  scrape_companies($,exchanges["ftse350"]); 	
 			$ = cheerio.load(R_coinranking.data);
-			results.ftse350.data =  scrape_companies($,exchanges["coinranking"]); 			
+			results.coinranking.data =  scrape_companies($,exchanges["coinranking"]); 			
  
 			cache["all"] = results;
 			res.status(200);	
@@ -246,9 +292,7 @@ router.get('/all', function(req, res){  // as /scrape/all
 			});
 });
 
-
-
-router.get('/test', function(req, res){  // as /scrape/test?n=1 ,2,3,4,5
+router.get('/test', function(req, res){  // as /scrape/test?n=0 , 1,2,3,4,5     test cases for the stocks
 
 	var n = req.query.n || 1 ;
 	
@@ -260,8 +304,6 @@ router.get('/test', function(req, res){  // as /scrape/test?n=1 ,2,3,4,5
 		res.json(testData[n]);		
 			
 });
-
-
 
 
 // this code below, does not scale well, if lots of sources
@@ -421,7 +463,7 @@ router.get('/coinranking', function(req, res){
         var stock = $(this);
 		 
 							detail = $($(stock.parent().parent())).attr("href").replace("https://coinranking.com","");			 
-							symbol = "";
+							symbol = 	$($(stock.parent().parent())).attr("href").replace("https://coinranking.com/coin/",""); 
  							company =   $(stock.find(".coin-name")).text();  
 							price =     $(stock.find(".coin-list__body__row__price__value")).text().trim().replace(",","");;   
 							
@@ -455,5 +497,7 @@ router.get('/coinranking', function(req, res){
 	res.json(results);
   })
 });
- 
+
+
+
 module.exports = router; // finally export the router that handles the routes
