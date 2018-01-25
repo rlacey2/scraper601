@@ -253,9 +253,9 @@ router.get('/all', function(req, res){  // as /scrape/all  object with data for 
   	if (cache["all"]) 
 	{   
 			res.status(200);	
-			cache["all"][0].cached = true;
-			cache["all"][1].cached = true;			
-			cache["all"][2].cached = true;				
+			cache["all"].ise.cached = true;
+			cache["all"].ftse350.cached = true;			
+			cache["all"].coinranking.cached = true;				
 			res.json(cache["all"]);	
 			return;
 	}		
