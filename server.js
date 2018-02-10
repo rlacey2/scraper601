@@ -25,6 +25,9 @@ app.use(function(req, res, next) {  // HAS TO BE FIRST
   }
 });
 
+
+
+
 app.use (function (req, res, next) {  // req.protocol
         if (req.secure) {
                 // request was via https, so do no special handling
@@ -35,6 +38,14 @@ app.use (function (req, res, next) {  // req.protocol
                 res.redirect('https://' + req.headers.host + req.url);
         }
 });
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
  
 app.use(   "/",  
 			express.static(__dirname + '/_ngClient')    
