@@ -99,7 +99,7 @@ var testPrices =  [
       {  
          "company":"CRH PLC",
          "symbol":"CRH.I",
-         "price":"30.00",
+         "price":"33.00",
          "change":"+3.00",
          "pChg":"+10.00%"  
       },
@@ -113,7 +113,7 @@ var testPrices =  [
 		"time":"2018-01-12T21:59:11.944Z",
 		"cached":false,
 		"details":"http://shares.telegraph.co.uk",
-		"data":[{"company":"Tesco","symbol":"TSCO","price":"4.50","change":"+0.45","pChg":"+10.00%"} ]
+		"data":[{"company":"Tesco","symbol":"TSCO","price":"4.95","change":"+0.45","pChg":"+10.00%"} ]
 	},
 
 	"coinranking" :  {"exchange":"coinranking",
@@ -122,7 +122,7 @@ var testPrices =  [
 		"time":"2018-01-12T22:10:05.247Z",
 		"cached":false,
 		"details":"https://coinranking.com/coin",
-		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"2.00","change":"+0.20","pChg":"+10.00%"}]
+		"data":[ {"company":"Ripple","symbol":"ripple-xrp","price":"2.20","change":"+0.20","pChg":"+10.00%"}]
 	}	
 },
 
