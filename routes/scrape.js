@@ -28,7 +28,7 @@ var exchanges = {
 						parse_stock : function($,stock)
 						{
 							//detail = $($(stock.children().get(0)).children().get(0)).attr("href"); // tricky
-							symbol = $($(stock.children().get(0)).children().get(0)).attr("href").split("=")[1];
+							symbol = $($(stock.children().get(0)).children().get(0)).attr("href").split("=")[1].replace(".","_");
 							company = $(stock.children().get(0)).text().trim();  // from the <a />
 							price = $(stock.children().get(1)).text().trim(); 
 							change = $(stock.children().get(2)).text().trim(); 
@@ -48,7 +48,7 @@ var exchanges = {
 						parse_stock : function($,stock)
 						{
 							detail = $($(stock.children().get(0)).children().get(0)).attr("href"); // tricky
-							symbol = $($(stock.children().get(0)).children().get(0)).attr("href").split("=")[1];
+							symbol = $($(stock.children().get(0)).children().get(0)).attr("href").split("=")[1].replace(".","_");;
 							company = $(stock.children().get(1)).text().trim(); 
 							price = $(stock.children().get(2)).text().trim(); 
 							change = $(stock.children().get(3)).text().trim(); 
@@ -72,7 +72,7 @@ var exchanges = {
 						{
  
 							detail = $(stock).attr("href").replace("https://coinranking.com",""); ;  //$($(stock.parent().parent())).attr("href").replace("https://coinranking.com","");			 
-							symbol = 	$(stock).attr("href").replace("https://coinranking.com/coin/",""); 
+							symbol = 	$(stock).attr("href").replace("https://coinranking.com/coin/","").replace(".","_"); 
  							company =   $(stock.find(".coin-name")).text();  
 							price =     $(stock.find(".coin-list__body__row__price__value")).text().trim().replace(",","");;   
 							

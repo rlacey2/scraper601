@@ -18,7 +18,7 @@ var testPrices =  [
   
       {  
          "company":"AIB GROUP PLC",
-         "symbol":"AIBG.I",
+         "symbol":"AIBG_I",
          "price":"5.00",
          "change":"0.00",
          "pChg":"0.00%" 
@@ -27,7 +27,7 @@ var testPrices =  [
  
       {  
          "company":"BK IRE GRP PLC",
-         "symbol":"BIRG.I",
+         "symbol":"BIRG_I",
          "price":"4.00",
          "change":"0.00",
          "pChg":"0.00%" 
@@ -35,7 +35,7 @@ var testPrices =  [
  
       {  
          "company":"CRH PLC",
-         "symbol":"CRH.I",
+         "symbol":"CRH_I",
          "price":"30.00",
          "change":"0.00",
          "pChg":"0.00%" 
@@ -81,7 +81,7 @@ var testPrices =  [
   
       {  
          "company":"AIB GROUP PLC",
-         "symbol":"AIBG.I",
+         "symbol":"AIBG_I",
          "price":"5.50",
          "change":"+0.50",
          "pChg":"+10.00%" 
@@ -90,7 +90,7 @@ var testPrices =  [
  
       {  
          "company":"BK IRE GRP PLC",
-         "symbol":"BIRG.I",
+         "symbol":"BIRG_I",
          "price":"4.40",
          "change":"+0.40",
          "pChg":"+10.00%" 
@@ -98,7 +98,7 @@ var testPrices =  [
  
       {  
          "company":"CRH PLC",
-         "symbol":"CRH.I",
+         "symbol":"CRH_I",
          "price":"33.00",
          "change":"+3.00",
          "pChg":"+10.00%"  
@@ -144,7 +144,7 @@ var testPrices =  [
   
       {  
          "company":"AIB GROUP PLC",
-         "symbol":"AIBG.I",
+         "symbol":"AIBG_I",
          "price":"4.50",
          "change":"-0.50",
          "pChg":"-10.00%" 
@@ -153,7 +153,7 @@ var testPrices =  [
  
       {  
          "company":"BK IRE GRP PLC",
-         "symbol":"BIRG.I",
+         "symbol":"BIRG_I",
          "price":"3.60",
          "change":"-0.40",
          "pChg":"-10.00%" 
@@ -161,7 +161,7 @@ var testPrices =  [
  
       {  
          "company":"CRH PLC",
-         "symbol":"CRH.I",
+         "symbol":"CRH_I",
          "price":"27.00",
          "change":"-3.00",
          "pChg":"-10.00%"  
@@ -207,7 +207,7 @@ var testPrices =  [
   
       {  
          "company":"AIB GROUP PLC",
-         "symbol":"AIBG.I",
+         "symbol":"AIBG_I",
          "price":"6.00",
          "change":"+1.00",
          "pChg":"+20.00%" 
@@ -216,7 +216,7 @@ var testPrices =  [
  
       {  
          "company":"BK IRE GRP PLC",
-         "symbol":"BIRG.I",
+         "symbol":"BIRG_I",
          "price":"4.80",
          "change":"+0.80",
          "pChg":"+20.00%" 
@@ -224,7 +224,7 @@ var testPrices =  [
  
       {  
          "company":"CRH PLC",
-         "symbol":"CRH.I",
+         "symbol":"CRH_I",
          "price":"36.00",
          "change":"+6.00",
          "pChg":"+20.00%"  
@@ -270,7 +270,7 @@ var testPrices =  [
   
       {  
          "company":"AIB GROUP PLC",
-         "symbol":"AIBG.I",
+         "symbol":"AIBG_I",
          "price":"4.00",
          "change":"-1.00",
          "pChg":"-20.00%" 
@@ -279,7 +279,7 @@ var testPrices =  [
  
       {  
          "company":"BK IRE GRP PLC",
-         "symbol":"BIRG.I",
+         "symbol":"BIRG_I",
          "price":"3.20",
          "change":"-0.80",
          "pChg":"-20.00%" 
@@ -287,7 +287,7 @@ var testPrices =  [
  
       {  
          "company":"CRH PLC",
-         "symbol":"CRH.I",
+         "symbol":"CRH_I",
          "price":"24.00",
          "change":"-6.00",
          "pChg":"-20.00%"  
@@ -333,7 +333,7 @@ var testPrices =  [
   
       {  
          "company":"AIB GROUP PLC",
-         "symbol":"AIBG.I",
+         "symbol":"AIBG_I",
          "price":"10.00",
          "change":"+5.00",
          "pChg":"+100.00%" 
@@ -342,7 +342,7 @@ var testPrices =  [
  
       {  
          "company":"BK IRE GRP PLC",
-         "symbol":"BIRG.I",
+         "symbol":"BIRG_I",
          "price":"8.00",
          "change":"+4.00",
          "pChg":"+100.00%" 
@@ -350,7 +350,7 @@ var testPrices =  [
  
       {  
          "company":"CRH PLC",
-         "symbol":"CRH.I",
+         "symbol":"CRH_I",
          "price":"60.00",
          "change":"+30.00",
          "pChg":"+100.00%" 
