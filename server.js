@@ -6,7 +6,7 @@ var https = require('https');
 var http  = require('http');  
 var toobusy = require('toobusy-js');   // https://www.npmjs.com/package/toobusy-js
 
-var platform = require('./node_server/platform.js').configure();;
+var platform = require('./node_server/platform.js').configure();
  
 
  

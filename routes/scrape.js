@@ -41,12 +41,19 @@ var exchanges = {
 									
 					"ftse350" :  { exchange : "ftse350", currency : "sterling",	
 						sourceSite	: "http://shares.telegraph.co.uk", 
-						url 		: "http://shares.telegraph.co.uk/indices/?index=NMX", 
-						details	 	: "http://shares.telegraph.co.uk/quote/?epic="  , // to drill into the stock
+ 	
+					//	url 		: "http://shares.telegraph.co.uk/indices/?index=NMX", 
+					//	details	 	: "http://shares.telegraph.co.uk/quote/?epic="  , // to drill into the stock
+						url : "https://web.archive.org/web/20170721003742/http://shares.telegraph.co.uk/indices/?index=NMX",
+						details : "https://web.archive.org/web/20170526202357/http://shares.telegraph.co.uk:80/quote/?epic",						
+						
 						stock_selector : "table#summary-table tbody tr",  // to find for scrapping					
 						
 						parse_stock : function($,stock)
 						{
+						//		   return json = { company :   "TESCO", symbol : "TSCO", price : 200.00 , change : 0, pChg : 0  };	
+// daily telegraph site not working
+								   
 							detail = $($(stock.children().get(0)).children().get(0)).attr("href"); // tricky
 							symbol = $($(stock.children().get(0)).children().get(0)).attr("href").split("=")[1].replace(".","_");;
 							company = $(stock.children().get(1)).text().trim(); 
@@ -54,7 +61,7 @@ var exchanges = {
 							change = $(stock.children().get(3)).text().trim(); 
 							pChg = $(stock.children().get(4)).text().trim(); 
 
-							return { company :   company, symbol : symbol, price : price , change : change, pChg : pChg};
+						 	return { company :   company, symbol : symbol, price : price , change : change, pChg : pChg};
 						}
  								
 					}, // fts350					
@@ -98,7 +105,6 @@ var exchanges = {
 						}
  								
 					} // coinranking
-	
 				};
 
 // in this solution all dat is cached for 5 minutes, to prevent scraping hits placing undo burden on third party site.
@@ -175,32 +181,13 @@ router.get('/', function(req, res){  // as /scrape?exchange=ise    /scrape?excha
 }); // /scrap
 
 router.get('/assets/:exchange/:asset', function(req, res){  // as /scrape/some exchange/some asset returns object for on share only
-
+     console.log("/assets/:exchange/:asset");
 	var exchange = req.params.exchange;
 	var asset = req.params.asset;
  
   	if (cache[exchange]) {  
             // need to search the array of data
-			
-
-			get_asset_object(cache[exchange].data, asset, res);			
-			/*
-			var data = cache[exchange].data;
- 
-			var obj = data.find(o => o.symbol === asset);
-            if (obj)
-			{
-				res.status(200);	
-				res.json(obj);
-				return;
-			}
-			else // not on this exchange
-			{
-				res.status(404);	
-				res.json({});
-				return;
-			}	
-*/			
+			get_asset_object(cache[exchange].data, asset, res);				
 	}	
 	
 	// do a fresh requery
@@ -366,12 +353,18 @@ router.get('/ise', function(req, res){ // using  http://www.davy.ie/markets-and-
 });
 
 router.get('/ftse350', function(req, res){ // http://shares.telegraph.co.uk/indices/?index=NMX = FTSE350
-
+// 20180318 discovered Daily Telegraph not working
 	var exchange = "ftse350";
-	var sourceSite = "telegraph";
+	//var sourceSite = "telegraph";
+	//var currency = "sterling";
+	//var details = "http://shares.telegraph.co.uk/quote/?epic="; // prefix for a specific share	
+	//var url = 'http://shares.telegraph.co.uk/indices/?index=NMX';	
+	
+	var sourceSite = "shareprices.com";
 	var currency = "sterling";
-	var details = "http://shares.telegraph.co.uk/quote/?epic="; // prefix for a specific share	
-	var url = 'http://shares.telegraph.co.uk/indices/?index=NMX';	
+	var details = "https://shareprices.com/lse/"; // prefix for a specific share	
+	var url = 'https://shareprices.com/indices/ftse350';		
+	
 	
   	if (cache.ftse350) 
 	{   
@@ -398,8 +391,18 @@ router.get('/ftse350', function(req, res){ // http://shares.telegraph.co.uk/indi
       var $ = cheerio.load(html);
  
       var company, price, change, pChg, symbol, detail;
-      var json;
-      // valid parse 10/01/2018
+      var json
+	  
+	  
+	  // 20180318 HARD CODE STATIC RESULTS
+	  
+	//    json = { company :   "TESCO", symbol : "TSCO", price : 200.00 , change : 0, pChg : 0  };
+ 
+   //     data.push(json);
+	  
+   
+ 	  
+      // valid parse 10/01/2018  FAILED 02180318
       $('table#summary-table tbody tr').filter(function(){ // for each !!!!! i.e. get each share which is in a row / tr
         var stock = $(this);
 		 
@@ -415,10 +418,12 @@ router.get('/ftse350', function(req, res){ // http://shares.telegraph.co.uk/indi
  
         data.push(json);
       });
+   
     }
 
 	results.data = data;
 	cache[exchange] = results;
+console.log(	results );
 	res.status(200);	
 	res.json(results);
   })
