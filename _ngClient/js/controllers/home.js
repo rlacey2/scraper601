@@ -11,7 +11,7 @@ angularnodeApp.controller('HomeCtrl', ['$scope' , 'nrzLightify',
 
 
 
-// 2-180318 QUICK FIX
+// 2-180318 QUICK FIX  USED WAYBACK MACHINE IN THE END
 
 /*
 
