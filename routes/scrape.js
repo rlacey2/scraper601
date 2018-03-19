@@ -1,5 +1,7 @@
 // router to handle http paths   /scrape/*      /scrape is handled in server.js
 
+console.log("ftse350 is all static data - everywhere");
+
 var express = require('express');
 
 var router = express.Router();
@@ -13,6 +15,22 @@ var Q = require('q'); // promises
 var bodyParser = require('body-parser');  
 
 var testData = require('./testData.js');
+
+var exchanges_3_static = require('./all_stocks_20180318.js');
+ 
+ 
+var cache = {};
+
+cache.ftse350 = exchanges_3_static.ftse350; // use the static file
+
+var jobId = crontab.scheduleJob("*/5 * * * *", function() { //This will call this function every 5 minutes 
+    console.log("Clearing cache: " + new Date().toISOString());
+	cache = {};
+	cache.ftse350 = exchanges_3_static.ftse350; // use the static file
+	
+ // not working as next login fails for some reason	secrets.jwtSetSecret();
+});
+
 
 // individual get paths for /ise and /ftse350 and then refactored to work generically with /scrap?exchange=ise ...
 
@@ -40,20 +58,14 @@ var exchanges = {
 					}, // ise
 									
 					"ftse350" :  { exchange : "ftse350", currency : "sterling",	
+					// deprecated
 						sourceSite	: "http://shares.telegraph.co.uk", 
- 	
-					//	url 		: "http://shares.telegraph.co.uk/indices/?index=NMX", 
-					//	details	 	: "http://shares.telegraph.co.uk/quote/?epic="  , // to drill into the stock
-						url : "https://web.archive.org/web/20170721003742/http://shares.telegraph.co.uk/indices/?index=NMX",
-						details : "https://web.archive.org/web/20170526202357/http://shares.telegraph.co.uk:80/quote/?epic",						
-						
+						url 		: "http://shares.telegraph.co.uk/indices/?index=NMX", 
+						details	 	: "http://shares.telegraph.co.uk/quote/?epic="  , // to drill into the stock
 						stock_selector : "table#summary-table tbody tr",  // to find for scrapping					
 						
 						parse_stock : function($,stock)
 						{
-						//		   return json = { company :   "TESCO", symbol : "TSCO", price : 200.00 , change : 0, pChg : 0  };	
-// daily telegraph site not working
-								   
 							detail = $($(stock.children().get(0)).children().get(0)).attr("href"); // tricky
 							symbol = $($(stock.children().get(0)).children().get(0)).attr("href").split("=")[1].replace(".","_");;
 							company = $(stock.children().get(1)).text().trim(); 
@@ -61,7 +73,7 @@ var exchanges = {
 							change = $(stock.children().get(3)).text().trim(); 
 							pChg = $(stock.children().get(4)).text().trim(); 
 
-						 	return { company :   company, symbol : symbol, price : price , change : change, pChg : pChg};
+							return { company :   company, symbol : symbol, price : price , change : change, pChg : pChg};
 						}
  								
 					}, // fts350					
@@ -105,19 +117,12 @@ var exchanges = {
 						}
  								
 					} // coinranking
+	
 				};
 
 // in this solution all dat is cached for 5 minutes, to prevent scraping hits placing undo burden on third party site.
 // for real application this can be handled with an agreement and/or fee etc.
-
-var cache = {};
-
-var jobId = crontab.scheduleJob("*/5 * * * *", function() { //This will call this function every 5 minutes 
-    console.log("Clearing cache: " + new Date().toISOString());
-	cache = {};
- // not working as next login fails for some reason	secrets.jwtSetSecret();
-});
-
+ 
 function get_asset_object(data, asset,res) {
 			var obj = data.find(o => o.symbol === asset);
             if (obj) {
@@ -145,7 +150,8 @@ function scrape_companies($,options) {  // companies = stock of company, cryto c
 } // scrape_companies
  
 router.get('/', function(req, res){  // as /scrape?exchange=ise    /scrape?exchange=ftse350     /scrape?exchange=coinranking
-	
+
+console.log("/get " + req.query.exchange);	
 	var exchange = req.query.exchange ; // use as a key into exhanges
 	
 	var options = exchanges[exchange];
@@ -157,7 +163,7 @@ router.get('/', function(req, res){  // as /scrape?exchange=ise    /scrape?excha
 			res.json(cache[options.exchange]);	
 			return;
 	}	
-
+console.log("/get " + req.query.exchange   + "  not in cache");
 	var data = [];
 	var results = { exchange : options.exchange, source: options.sourceSite, time : new Date(), cached : false, details : options.details, data: []};
  	
@@ -181,15 +187,18 @@ router.get('/', function(req, res){  // as /scrape?exchange=ise    /scrape?excha
 }); // /scrap
 
 router.get('/assets/:exchange/:asset', function(req, res){  // as /scrape/some exchange/some asset returns object for on share only
-     console.log("/assets/:exchange/:asset");
+
 	var exchange = req.params.exchange;
 	var asset = req.params.asset;
  
   	if (cache[exchange]) {  
             // need to search the array of data
-			get_asset_object(cache[exchange].data, asset, res);				
+			
+
+			return get_asset_object(cache[exchange].data, asset, res);			
+ 			
 	}	
-	
+	console.log("not in cache: /assets/:exchange/:asset");
 	// do a fresh requery
 			
 	var options = exchanges[exchange];
@@ -250,21 +259,27 @@ router.get('/all', function(req, res){  // as /scrape/all  object with data for 
 	var options;   // exercise refactor below to a loop, to allow for scale
 	options = exchanges["ise"];
 	results.ise     =  { exchange : options.exchange, source: options.sourceSite, time : new Date(), cached : false, details : options.details, data: []};
-	options = exchanges["ftse350"];
-	results.ftse350 = { exchange : options.exchange, source: options.sourceSite, time : new Date(), cached : false, details : options.details, data: []};
+//	options = exchanges["ftse350"];
+//	results.ftse350 = { exchange : options.exchange, source: options.sourceSite, time : new Date(), cached : false, details : options.details, data: []};
 	options = exchanges["coinranking"];
 	results.coinranking = { exchange : options.exchange, source: options.sourceSite, time : new Date(), cached : false, details : options.details, data: []};
 
 	var $; 
-	axios.all([   axios.get(exchanges['ise'].url), axios.get(exchanges['ftse350'].url), axios.get(exchanges['coinranking'].url)])
-	  .then(axios.spread(function (R_ise, R_ftse350, R_coinranking) {
+//	axios.all([   axios.get(exchanges['ise'].url), axios.get(exchanges['ftse350'].url), axios.get(exchanges['coinranking'].url)])
+//  .then(axios.spread(function (R_ise, R_ftse350, R_coinranking) {	
+	axios.all([   axios.get(exchanges['ise'].url),   axios.get(exchanges['coinranking'].url)])
+	  .then(axios.spread(function (R_ise,   R_coinranking) {
 		// all requests are now complete
 		
 	 
 	        $ = cheerio.load(R_ise.data);	//.data is the html	
 			results.ise.data =  scrape_companies($,exchanges["ise"]); 
-			$ = cheerio.load(R_ftse350.data);
-			results.ftse350.data =  scrape_companies($,exchanges["ftse350"]); 	
+//			$ = cheerio.load(R_ftse350.data);
+//			results.ftse350.data =  scrape_companies($,exchanges["ftse350"]); 	
+
+			results.ftse350  = exchanges_3_static.ftse350; 
+
+
 			$ = cheerio.load(R_coinranking.data);
 			results.coinranking.data =  scrape_companies($,exchanges["coinranking"]); 			
  
@@ -353,18 +368,12 @@ router.get('/ise', function(req, res){ // using  http://www.davy.ie/markets-and-
 });
 
 router.get('/ftse350', function(req, res){ // http://shares.telegraph.co.uk/indices/?index=NMX = FTSE350
-// 20180318 discovered Daily Telegraph not working
+
 	var exchange = "ftse350";
-	//var sourceSite = "telegraph";
-	//var currency = "sterling";
-	//var details = "http://shares.telegraph.co.uk/quote/?epic="; // prefix for a specific share	
-	//var url = 'http://shares.telegraph.co.uk/indices/?index=NMX';	
-	
-	var sourceSite = "shareprices.com";
+	var sourceSite = "telegraph";
 	var currency = "sterling";
-	var details = "https://shareprices.com/lse/"; // prefix for a specific share	
-	var url = 'https://shareprices.com/indices/ftse350';		
-	
+	var details = "http://shares.telegraph.co.uk/quote/?epic="; // prefix for a specific share	
+	var url = 'http://shares.telegraph.co.uk/indices/?index=NMX';	
 	
   	if (cache.ftse350) 
 	{   
@@ -391,18 +400,8 @@ router.get('/ftse350', function(req, res){ // http://shares.telegraph.co.uk/indi
       var $ = cheerio.load(html);
  
       var company, price, change, pChg, symbol, detail;
-      var json
-	  
-	  
-	  // 20180318 HARD CODE STATIC RESULTS
-	  
-	//    json = { company :   "TESCO", symbol : "TSCO", price : 200.00 , change : 0, pChg : 0  };
- 
-   //     data.push(json);
-	  
-   
- 	  
-      // valid parse 10/01/2018  FAILED 02180318
+      var json;
+      // valid parse 10/01/2018
       $('table#summary-table tbody tr').filter(function(){ // for each !!!!! i.e. get each share which is in a row / tr
         var stock = $(this);
 		 
@@ -418,12 +417,10 @@ router.get('/ftse350', function(req, res){ // http://shares.telegraph.co.uk/indi
  
         data.push(json);
       });
-   
     }
 
 	results.data = data;
 	cache[exchange] = results;
-console.log(	results );
 	res.status(200);	
 	res.json(results);
   })

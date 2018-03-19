@@ -1,3 +1,5 @@
+
+var exchanges_3_static = 
 {  
    "ise":{  
       "exchange":"ise",
@@ -3155,4 +3157,7 @@
          }
       ]
    }
-}
+};
+
+ 
+module.exports = exchanges_3_static;
